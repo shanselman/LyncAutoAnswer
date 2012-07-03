@@ -6,11 +6,23 @@ using Microsoft.Lync.Model;
 using Microsoft.Lync.Model.Conversation.AudioVideo;
 using System.Threading.Tasks;
 using Microsoft.Lync.Model.Conversation;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
+using System.Threading;
 
 namespace LyncAutoAnswerConsole
 {
+    public static class UnsafeNativeMethods
+    {
+        [DllImport("user32.dll")]
+        public static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className, string windowTitle);
+    }
+
     class Program
     {
+        [DllImport("user32.dll")]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
+
         static void Main(string[] args)
         {
             var lync = LyncClient.GetClient();
@@ -36,8 +48,7 @@ namespace LyncAutoAnswerConsole
                     {
                         sb.Append("Incoming IM from ");
                     }
-                    //string callerName = data.Conversation.Participants[1].Contact.GetContactInformation(ContactInformationType.DisplayName).ToString();
-                    string callerName = String.Join(", ", cmea.Conversation.Participants.Select(i => i.Contact.Uri));
+                    sb.Append(String.Join(", ", cmea.Conversation.Participants.Select(i => i.Contact.Uri)));
 
                     Console.WriteLine(sb.ToString());
 
@@ -48,65 +59,6 @@ namespace LyncAutoAnswerConsole
                     {
                         InitiateAVStream(cmea.Conversation);
                     }
-
-
-
-
-                    //var convo = cmea.Conversation;
-
-                    //Console.Write("Conversation added with ");
-                    //Console.WriteLine(String.Join(", ", convo.Participants.Select(i => i.Contact.Uri)));
-
-                    //if (convo.Modalities.ContainsKey(ModalityTypes.AudioVideo)
-                    //    && convo.Modalities[ModalityTypes.AudioVideo].State != ModalityState.Disconnected)
-                    //{
-                    //    //convo.Modalities[ModalityTypes.AudioVideo].Accept();
-                    //    var video = (AVModality)convo.Modalities[ModalityTypes.AudioVideo];
-                    //    video.Accept();
-                    //}
-
-
-
-
-
-
-
-
-                    //var conversation = connectionManagerEventArgs.Conversation;
-                    //var video = (AVModality)conversation.Modalities[ModalityTypes.AudioVideo];
-                    //video.ModalityStateChanged += (s, modalityChangedSentEventArgs) =>
-                    //    {
-                    //        if (modalityChangedSentEventArgs.NewState == ModalityState.Notified)
-                    //        {
-                    //            Console.WriteLine(modalityChangedSentEventArgs.NewState.ToString());
-                    //        }
-                    //    };
-
-                    ////var chat = (InstantMessageModality)conversation.Modalities[ModalityTypes.InstantMessage];
-                    ////chat.ModalityStateChanged += (sender, modalityChangedSentEventArgs) =>
-                    ////{
-                    ////    Console.WriteLine(modalityChangedSentEventArgs.NewState.ToString());
-                    ////    if (modalityChangedSentEventArgs.NewState == ModalityState.Connected)
-                    ////    {
-                    ////        chat.InstantMessagePropertyChanged += (_3, propchanged) =>
-                    ////        {
-                    ////            Console.WriteLine(propchanged.ToString());
-                    ////        };
-                    ////        chat.InstantMessageReceived += (_2, messageSentEventArgs) =>
-                    ////        {
-                    ////            if (messageSentEventArgs.Contents[InstantMessageContentType.PlainText].Contains("password"))
-                    ////            {
-                    //                var convo = conversation;
-                    //                var av = (AVModality)convo.Modalities[ModalityTypes.AudioVideo];
-                    //                var startVideoTask = Task.Factory.FromAsync(av.VideoChannel.BeginStart, av.VideoChannel.EndStart, null);
-                    //                startVideoTask.ContinueWith(t =>
-                    //                {
-                    //                    // Video is now started
-                    //                });
-                    ////            }
-                    ////        };
-                    ////    }
-                    ////};
                 };
 
             Console.ReadLine();
@@ -121,17 +73,55 @@ namespace LyncAutoAnswerConsole
 
             if (pConversation.Modalities[ModalityTypes.AudioVideo].CanInvoke(ModalityAction.Connect))
             {
-                //pConversation.Modalities[ModalityTypes.AudioVideo].ModalityStateChanged += _AVModality_ModalityStateChanged;
-                //pConversation.Modalities[ModalityTypes.AudioVideo].ActionAvailabilityChanged += _AVModality_ActionAvailabilityChanged;
+                var video = (AVModality)pConversation.Modalities[ModalityTypes.AudioVideo];
+                video.Accept();
 
-                //Accept the notification. If Lync UI is enabled, incoming call notification is closed.
-                pConversation.Modalities[ModalityTypes.AudioVideo].Accept();
-
-                //Connect the AV modality and begin to send and received AV stream.
-                object[] asyncState = { pConversation.Modalities[ModalityTypes.AudioVideo], "CONNECT" };
-                pConversation.Modalities[ModalityTypes.AudioVideo].BeginConnect(ModalityCallback, asyncState);
+                //Get ready to be connected, then WE can start OUR video
+                video.ModalityStateChanged += _AVModality_ModalityStateChanged;
             }
         }
+        
+        static void _AVModality_ModalityStateChanged(object sender, ModalityStateChangedEventArgs e)
+        {
+            VideoChannel vc = null;
+            switch (e.NewState)
+            {
+                //we can't start video until it's connected
+                case ModalityState.Connected:
+                    if (vc == null)
+                    {
+                        vc = ((AVModality)sender).VideoChannel;
+                        //_VideoChannel.StateChanged += new EventHandler<ChannelStateChangedEventArgs>(_VideoChannel_StateChanged);
+
+                        Thread.Sleep(500);
+                    }
+                    if (vc.CanInvoke(ChannelAction.Start))
+                    {
+                        vc.BeginStart(videoCallBack, vc);
+                    }
+                    else
+                    {
+                        Console.WriteLine("CanInvoke said NO!");
+                    }
+
+                    //Go looking around for the IM Window (there had better just be the one we just started)
+                    // and force it to the foreground
+                    IntPtr childHandle = UnsafeNativeMethods.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "IMWindowClass", null);
+                    SetForegroundWindow(childHandle);
+
+                    //Try to get the video to go full screen by pressing F5
+                    WindowsInput.InputSimulator.SimulateKeyPress(WindowsInput.VirtualKeyCode.F5);
+
+                    break;
+            }
+        }
+
+
+        private static void videoCallBack(IAsyncResult ar)
+        {
+            ((VideoChannel)ar.AsyncState).EndStart(ar);
+        }
+
 
         private static void ModalityCallback(IAsyncResult ar)
         {
