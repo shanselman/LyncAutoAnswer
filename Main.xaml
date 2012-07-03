@@ -14,20 +14,19 @@
                 <!-- Show the presence indicator. Hover over the icon to see the contact card.
                  Set Source to a valid SIP URI in your organization.  -->
                 <controls:PresenceIndicator 
-                x:Name="Presence"  
-                Source="{Binding Source={x:Static properties:Settings.Default}, Path=sipEmailAddress, Mode=OneWay}" 
-                PhotoDisplayMode="Large" 
-                />
+                    x:Name="Presence"  
+                    Source="{Binding Source={x:Static properties:Settings.Default}, Path=sipEmailAddress, Mode=OneWay}" 
+                    PhotoDisplayMode="Large" />
                 <!-- Use the DisplayName property from PresenceIndicator to show the user's name -->
                 <TextBlock 
-                Text="{Binding DisplayName, ElementName=Presence}" 
-                Margin="4,0,0,0" 
-                VerticalAlignment="Center"
+                    Text="{Binding DisplayName, ElementName=Presence}" 
+                    Margin="4,0,0,0" 
+                    VerticalAlignment="Center"
                 />
                 <controls:StartVideoCallButton Source="{Binding Source={x:Static properties:Settings.Default}, Path=sipEmailAddress, Mode=OneWay}" x:Name="startVideoCall" />
-                <controls:ShareDesktopButton Source="{Binding Source={x:Static properties:Settings.Default}, Path=sipEmailAddress, Mode=OneWay}"/>
+                <controls:ShareDesktopButton Source="{Binding Source={x:Static properties:Settings.Default}, Path=sipEmailAddress, Mode=OneWay}" />
             </StackPanel>
-            <CheckBox  IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=autoAnswer, Mode=TwoWay}" Content="Auto Answer Video Calls"/>
+            <CheckBox IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=autoAnswer, Mode=TwoWay}" Content="Auto Answer Video Calls "/>
         </StackPanel>
     </Grid>
 
