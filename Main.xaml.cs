@@ -1,12 +1,22 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using Microsoft.Lync.Model;
-using Microsoft.Lync.Model.Conversation;
 using Microsoft.Lync.Model.Conversation.AudioVideo;
+using System.Threading.Tasks;
+using Microsoft.Lync.Model.Conversation;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace SuperSimpleLyncKiosk
 {
@@ -30,8 +40,8 @@ namespace SuperSimpleLyncKiosk
             var conversationmgr = lync.ConversationManager;
             conversationmgr.ConversationAdded += (_, cmea) =>
             {
-                bool IncomingAV = false;
-                StringBuilder sb = new StringBuilder();
+                Boolean IncomingAV = false;
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
             
                 //Is this an audio/video invitation?
                 if (cmea.Conversation.Modalities[ModalityTypes.AudioVideo].State == ModalityState.Notified)
@@ -67,7 +77,10 @@ namespace SuperSimpleLyncKiosk
 
         private static void InitiateAVStream(Conversation pConversation)
         {
-            if (pConversation.State == ConversationState.Terminated) { return; }
+            if (pConversation.State == ConversationState.Terminated)
+            {
+                return;
+            }
 
             if (pConversation.Modalities[ModalityTypes.AudioVideo].CanInvoke(ModalityAction.Connect))
             {
@@ -75,11 +88,11 @@ namespace SuperSimpleLyncKiosk
                 video.Accept();
 
                 //Get ready to be connected, then WE can start OUR video
-                video.ModalityStateChanged += AVModality_ModalityStateChanged;
+                video.ModalityStateChanged += _AVModality_ModalityStateChanged;
             }
         }
         
-        static void AVModality_ModalityStateChanged(object sender, ModalityStateChangedEventArgs e)
+        static void _AVModality_ModalityStateChanged(object sender, ModalityStateChangedEventArgs e)
         {
             VideoChannel vc = null;
             switch (e.NewState)
@@ -89,13 +102,13 @@ namespace SuperSimpleLyncKiosk
                     if (vc == null)
                     {
                         vc = ((AVModality)sender).VideoChannel;
-                        vc.StateChanged += new EventHandler<ChannelStateChangedEventArgs>(VideoChannel_StateChanged);
+                        vc.StateChanged += new EventHandler<ChannelStateChangedEventArgs>(vc_StateChanged);
                     }
                     break;
             }
         }
 
-        static void VideoChannel_StateChanged(object sender, ChannelStateChangedEventArgs e)
+        static void vc_StateChanged(object sender, ChannelStateChangedEventArgs e)
         {
             VideoChannel vc = (VideoChannel)sender;
 
@@ -106,7 +119,10 @@ namespace SuperSimpleLyncKiosk
                 {
                     vc.BeginStart(videoCallBack, vc);
                 }
-                else {  Debug.WriteLine("CanInvoke said NO!"); }
+                else
+                {
+                    Debug.WriteLine("CanInvoke said NO!");
+                }
 
                 //Go looking around for the IM Window (there had better just be the one we just started)
                 // and force it to the foreground
