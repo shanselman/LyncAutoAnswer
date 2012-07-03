@@ -91,28 +91,35 @@ namespace LyncAutoAnswerConsole
                     if (vc == null)
                     {
                         vc = ((AVModality)sender).VideoChannel;
-                        //_VideoChannel.StateChanged += new EventHandler<ChannelStateChangedEventArgs>(_VideoChannel_StateChanged);
-
-                        Thread.Sleep(500);
+                        vc.StateChanged += new EventHandler<ChannelStateChangedEventArgs>(vc_StateChanged);
                     }
-                    if (vc.CanInvoke(ChannelAction.Start))
-                    {
-                        vc.BeginStart(videoCallBack, vc);
-                    }
-                    else
-                    {
-                        Console.WriteLine("CanInvoke said NO!");
-                    }
-
-                    //Go looking around for the IM Window (there had better just be the one we just started)
-                    // and force it to the foreground
-                    IntPtr childHandle = UnsafeNativeMethods.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "IMWindowClass", null);
-                    SetForegroundWindow(childHandle);
-
-                    //Try to get the video to go full screen by pressing F5
-                    WindowsInput.InputSimulator.SimulateKeyPress(WindowsInput.VirtualKeyCode.F5);
-
                     break;
+            }
+        }
+
+        static void vc_StateChanged(object sender, ChannelStateChangedEventArgs e)
+        {
+            VideoChannel vc = (VideoChannel)sender;
+
+            //Are we receiving? Let's try to send!
+            if (e.NewState == ChannelState.Receive)
+            {
+                if (vc.CanInvoke(ChannelAction.Start))
+                {
+                    vc.BeginStart(videoCallBack, vc);
+                }
+                else
+                {
+                    Console.WriteLine("CanInvoke said NO!");
+                }
+
+                //Go looking around for the IM Window (there had better just be the one we just started)
+                // and force it to the foreground
+                IntPtr childHandle = UnsafeNativeMethods.FindWindowEx(IntPtr.Zero, IntPtr.Zero, "IMWindowClass", null);
+                SetForegroundWindow(childHandle);
+
+                //Try to get the video to go full screen by pressing F5
+                WindowsInput.InputSimulator.SimulateKeyPress(WindowsInput.VirtualKeyCode.F5);
             }
         }
 
