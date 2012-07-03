@@ -68,7 +68,7 @@ namespace SuperSimpleLyncKiosk
                 //cmea.Conversation.StateChanged += Conversation_ConversationChangedEvent;
                 //cmea.Conversation.ActionAvailabilityChanged += Conversation_ActionAvailabilityChanged;
                 
-                if (IncomingAV == true)
+                if (IncomingAV == true && Properties.Settings.Default.autoAnswer == true)
                 {
                     InitiateAVStream(cmea.Conversation);
                 }
