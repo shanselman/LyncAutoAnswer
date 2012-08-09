@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperSimpleLyncKiosk", "SuperSimpleLyncKiosk.csproj", "{7EE33536-A206-4C4A-BD79-DEFFCE2EC71B}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperSimpleLyncKiosk-Not UI Suppressed", "Not UI Suppressed\SuperSimpleLyncKiosk-Not UI Suppressed.csproj", "{7EE33536-A206-4C4A-BD79-DEFFCE2EC71B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperSimpleLyncKiosk - UI Suppressed", "UI Suppressed\SuperSimpleLyncKiosk - UI Suppressed.csproj", "{D19814DB-FAD0-43B0-89DB-BA3AA88239B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{7EE33536-A206-4C4A-BD79-DEFFCE2EC71B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EE33536-A206-4C4A-BD79-DEFFCE2EC71B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EE33536-A206-4C4A-BD79-DEFFCE2EC71B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D19814DB-FAD0-43B0-89DB-BA3AA88239B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D19814DB-FAD0-43B0-89DB-BA3AA88239B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D19814DB-FAD0-43B0-89DB-BA3AA88239B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D19814DB-FAD0-43B0-89DB-BA3AA88239B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

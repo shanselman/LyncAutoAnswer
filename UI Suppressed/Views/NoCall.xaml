@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="SuperSimpleLyncKiosk.NoCall"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:converters ="clr-namespace:SuperSimpleLyncKiosk.Converters"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <converters:LyncPresenceTextConverter x:Key="LyncPresenceTextConverter"/>
+        <converters:LyncPresenceColourConverter x:Key="LyncPresenceColourConverter"/>
+    </UserControl.Resources>
+
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Waiting for Call" FontFamily="Segoe UI" FontSize="28" FontWeight="Light" Background="#698723" Foreground="White" Padding="10"/>
+
+        <Grid Grid.Row="1" Margin="20" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <ScaleTransform ScaleX="3" ScaleY="3"/>
+            </Grid.RenderTransform>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Column="1" Grid.Row="1" BorderThickness="3" BorderBrush="{Binding Path=Presence, Converter={StaticResource LyncPresenceColourConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4">
+
+                    <TextBlock Text="{Binding Path=DisplayName}"
+                               Margin="4,0,0,0" 
+                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    
+                    <TextBlock MaxWidth="200" TextWrapping="Wrap" Text="{Binding Path=Activity}" Margin="0 5 0 5" HorizontalAlignment="Center" FontStyle="Italic"/>
+                               
+
+                    <Image Source="{Binding Path=Photo}" Margin="5,5,5,5" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Path=Presence, Converter={StaticResource LyncPresenceTextConverter}}" HorizontalAlignment="Center"></TextBlock>
+                    <Button Command="{Binding Path=PlaceCallCommand}" Content="Call" Margin="5 20 5 5"/>
+
+                </StackPanel>
+            </Border>
+        </Grid>
+
+    </Grid>
+</UserControl>
+

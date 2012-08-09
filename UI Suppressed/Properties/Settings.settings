@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SuperSimpleLyncKiosk.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="autoAnswer" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="sipEmailAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sip:scottha@microsoft.com</Value>
+    </Setting>
+    <Setting Name="LyncAccountDomainUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">domain\user</Value>
+    </Setting>
+    <Setting Name="LyncAccountEmail" Type="System.String" Scope="User">
+      <Value Profile="(Default)">user@domain.com</Value>
+    </Setting>
+    <Setting Name="LyncAccountPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">P@ssword</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
