@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <Grid Background="#698723">
+    <Grid Background="ForestGreen">
 
         <TextBlock Grid.Row="0" Text="Failed to sign in :(" FontFamily="Segoe UI" FontSize="42" FontWeight="Light" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" />
 

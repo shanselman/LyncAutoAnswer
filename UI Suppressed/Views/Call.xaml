@@ -16,7 +16,6 @@
             <ColumnDefinition Width="220"/>
         </Grid.ColumnDefinitions>
 
-
         <modalitycontrol:VideoWindow Grid.Row="0" Grid.Column="0" x:Name="VideoWindow" Direction="Incoming"/>
         <Grid  Grid.Row="0" Grid.Column="1" >
             <Grid.RowDefinitions>
@@ -36,8 +35,14 @@
                                      />
 
             <StackPanel Grid.Row="0" >
-                
-                <Button Command="{Binding Path=EndCallCommand}" Content="End Call" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="45"/>
+
+                <Button Command="{Binding Path=EndCallCommand}" Content="End Call" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="45">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="/SuperSimpleLyncKioskUISuppressed;component/Images/hangup.png"   />       
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </StackPanel>
 
         </Grid>

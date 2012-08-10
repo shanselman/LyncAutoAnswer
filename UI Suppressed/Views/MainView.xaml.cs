@@ -1,4 +1,12 @@
-﻿using System;
+﻿/* Copyright (C) 2012 Modality Systems - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the Microsoft Public License, a copy of which 
+ * can be seen at: http://www.microsoft.com/en-us/openness/licenses.aspx
+ * 
+ * http://www.LyncAutoAnswer.com
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +30,8 @@ namespace SuperSimpleLyncKiosk.Views
         public MainView()
         {
             InitializeComponent();
-
-
-            ResizeMode = ResizeMode.NoResize;
+            
+            ResizeMode = ResizeMode.CanResize;
             WindowState = WindowState.Maximized;
         }
 
@@ -32,7 +39,6 @@ namespace SuperSimpleLyncKiosk.Views
         {
             try
             {
-
                 DataContext = new MainViewModel();
             }
             catch (ApplicationException ex)
@@ -40,6 +46,13 @@ namespace SuperSimpleLyncKiosk.Views
                 MessageBox.Show(ex.ToString(), "FATAL ERROR");
                 Application.Current.Shutdown(1);
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var vm = DataContext as MainViewModel;
+                vm.ShutDownLync();
+
         }
     }
 }

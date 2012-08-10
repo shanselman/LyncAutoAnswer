@@ -1,4 +1,12 @@
-﻿using System;
+﻿/* Copyright (C) 2012 Modality Systems - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the Microsoft Public License, a copy of which 
+ * can be seen at: http://www.microsoft.com/en-us/openness/licenses.aspx
+ * 
+ * http://www.LyncAutoAnswer.com
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,17 +30,17 @@ namespace SuperSimpleLyncKiosk.Converters
                     case "Free":
                         return Brushes.ForestGreen;
                     case "FreeIdle":
-                        return Brushes.Yellow;
+                        return Brushes.Goldenrod;
                     case "Busy":
-                        return Brushes.Red;
+                        return Brushes.Firebrick;
                     case "BusyIdle":
-                        return Brushes.Red;
+                        return Brushes.Firebrick;
                     case "DoNotDisturb":
-                        return Brushes.Red;
+                        return Brushes.Maroon;
                     case "TemporarilyAway":
-                        return Brushes.Yellow;
+                        return Brushes.Goldenrod;
                     case "Away":
-                        return Brushes.Yellow;
+                        return Brushes.Goldenrod;
                     case "Offline":
                         return Brushes.Gray;
                     default:

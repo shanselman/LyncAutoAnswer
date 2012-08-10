@@ -1,4 +1,12 @@
-﻿using System;
+﻿/* Copyright (C) 2012 Modality Systems - All Rights Reserved
+ * You may use, distribute and modify this code under the
+ * terms of the Microsoft Public License, a copy of which 
+ * can be seen at: http://www.microsoft.com/en-us/openness/licenses.aspx
+ * 
+ * http://www.LyncAutoAnswer.com
+*/
+
+using System;
 using LyncUISupressionWrapper;
 
 namespace SuperSimpleLyncKiosk.ViewModels
@@ -25,8 +33,11 @@ namespace SuperSimpleLyncKiosk.ViewModels
             _model.StateChanged += new EventHandler<StateChangedEventArgs>(_model_StateChanged);
 
             _model.SignIn(Properties.Settings.Default.LyncAccountEmail, Properties.Settings.Default.LyncAccountDomainUser, Properties.Settings.Default.LyncAccountPassword);
-            
- 
+        }
+
+        public void ShutDownLync()
+        {
+            _model.Shutdown();
         }
 
         private void _model_StateChanged(object sender, EventArgs e)
