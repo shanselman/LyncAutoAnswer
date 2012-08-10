@@ -20,7 +20,7 @@ namespace SuperSimpleLyncKiosk.Converters
                 switch ((string)value)
                 {
                     case "Free":
-                        return Brushes.LimeGreen;
+                        return Brushes.ForestGreen;
                     case "FreeIdle":
                         return Brushes.Yellow;
                     case "Busy":
