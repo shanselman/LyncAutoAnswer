@@ -13,14 +13,15 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <title>Lyncautoanswer by shanselman</title>
+    <title>LyncAutoAnswer by shanselman</title>
   </head>
 
   <body>
     <header>
       <div class="inner">
-        <h1>Lyncautoanswer</h1>
+        <h1>LyncAutoAnswer</h1>
         <h2>Lync 2012 Super Simple Auto Answer Video Kiosk with Full Screen</h2>
+		<h2>UI Suppressed & Non-UI Suppressed editions</h2>
         <a href="https://github.com/shanselman/LyncAutoAnswer" class="button"><small>View project on</small>GitHub</a>
       </div>
     </header>
@@ -28,47 +29,85 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h3>Welcome to GitHub Pages.</h3>
+          <h1>About LyncAutoAnswer</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>I have a machine at my remote office in Seattle that is dedicated to Lync Video. For whatever reason the Lync folks don't include basic checkbox options like "Auto Answer" and "Start Video Automatically when someone calls" and "Make Video Fullscreen". So, I did all that myself using the Lync SDK. Which is a nightmare. But it's done, so that's something.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<ul>
+	<li>Kiosk application with auto-answer</li>
+	<li>Auto-start video call</li>
+	<li>Full-screen video</li>
+	<li>Ideal for remote workers</li>
+</ul>	
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>I have <a href="http://www.hanselman.com/blog/CategoryView.aspx?category=Remote+Work">dozens of articles on my blog dedicated to Remote Work setup</a> that I hope you check out.</p>
 
-<h3>Designer Templates</h3>
+<p>Feel free to have fun with the code, but I only guarantee that it "Works on My Machine.©™"
+<br/><img src="https://a248.e.akamai.net/camo.github.com/96621e3d29b54618ff80e5adb021019d58751a36/687474703a2f2f7777772e68616e73656c6d616e2e636f6d2f626c6f672f636f6e74656e742f62696e6172792f57696e646f77734c6976655772697465722f496e74726f647563696e67526f636b5363726f6c6c5f433239432f776f726b732d6f6e2d6d792d6d616368696e652d7374617262757273745f332e706e67"</>
+</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>If you like it, <a href="http://hanselman.com/fightdiabetes">give money to Diabetes Research</a>.</p>
 
-<h3>Rather Drive Stick?</h3>
+<h1>Quick Setup Instructions</h1>
+<p>If you just want something that works and don't want to build it yourself, grab one of the binaries on the right. They're the Release builds of each of the different editions, built for AnyCPU. The readme in each file has specific instructions.</p>	
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<h1>Which Edition?</h1>
 
-<h3>Authors and Contributors</h3>
+<p>There's two editions of this project. The 'normal' way is to run code alongside the Lync Client - Non UI Suppressed. The other way is to run UI Suppressed. Both versions are below so you can see the differences: read about them and pick your favorite to play with.</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<h2>Not UI Suppressed Edition</h2>
+<p>This got written and <a href="http://www.hanselman.com/blog/IntroducingLync2010SuperSimpleAutoAnswerVideoKioskWithFullScreen.aspx">blogged about</a> first. It doesn't require you to do anything special other than have Microsoft Lync 2010 running. It will auto-answer calls, connect video and go full screen.</p>
 
-<h3>Support or Contact</h3>
+<p>A special nod to the <a href="http://inputsimulator.codeplex.com/">InputSimulator project on CodePlex</a>, as I'm using his excellent library.</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>To build or change this project, open the proj file in the <b>Not UI Suppressed</b> folder.</p>
+
+<h2>UI Suppressed Edition</h2>
+<p>
+	After writing the Not UI Suppressed edition, I reached out to <a href="http://thoughtstuff.co.uk">Tom</a> for help with making a UI Suppressed	version so I could do true full-screen and have more control, as it's complicated to use Lync in UI Suppression Mode. The guys at <a href="http://www.modalitydev.co.uk">Modality Systems</a> wrote me a wrapper class (<a href="https://github.com/tomorgan/Lync-UISuppression-VideoAutoAnswer">also a GitHub project</a>) which takes a lot of that pain away, and refactored my code to make a UI Suppressed edition.
+</p>
+
+<p>You can see, build or change the UI Suppressed version by opening the proj file in the <b>UI Suppressed</b> folder.
+
+<h3>UI Suppression Mode</h3>
+<p>UI Suppression Mode is a special setting in Lync which hides the client whilst still allowing the SDK to run and communicate with the underlying process. It's a more powerful method of using the SDK, but means you have to do all the work (such as signing in, getting presence etc.)</p>
+
+<p>To use UI Suppression Mode you need to make a registry change to tell Lync you want to use it. Close Lync (not just sign out) and then run the right script for your environment:</p>
+
+<ul>
+	<li>32bit machines: <a href="https://github.com/downloads/shanselman/LyncAutoAnswer/32bit-UISuppression-ON.reg">Suppression ON</a> | <a href="https://github.com/downloads/shanselman/LyncAutoAnswer/32bit-UISuppression-OFF.reg">Suppression OFF</a></li>
+	<li>64bit machines: <a href="https://github.com/downloads/shanselman/LyncAutoAnswer/64bit-UISuppression-ON.reg">Suppression ON</a> | <a href="https://github.com/downloads/shanselman/LyncAutoAnswer/64bit-UISuppression-OFF.reg">Suppression OFF</a></li>
+</ul>
+
+<p>You can also find these scripts in the <a href="https://github.com/shanselman/LyncAutoAnswer/downloads">Download</a> section</p>
+
+
+<h1>More Information / Resources</h1>
+	<ul>
+	<li>Both projects use the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=18898">Lync 2010 Client Developer SDK</a></li>
+	<li>The UI Suppression edition uses the <a href="https://github.com/tomorgan/Lync-UISuppression-VideoAutoAnswer">Lync-UISuppression-VideoAutoAnswer project.</a></li>
+	<li><a href="http://www.hanselman.com/blog/IntroducingLync2010SuperSimpleAutoAnswerVideoKioskWithFullScreen.aspx">Scott's blog post about writing the Not UI Suppressed edition<a/></li>
+	<li><a href="http://www.modalitydev.co.uk/2012/08/open-source-project-lyncautoanswer/">Tom's blog post about writing the UI Suppressed edition<a/></li>
+	<li><a href="http://msdn.microsoft.com/en-us/library/hh345230.aspx">MSDN article on UI Suppression</a></li>
+	</ul>
+	
+	
+
         </section>
 
         <aside id="sidebar">
-          <a href="https://github.com/shanselman/LyncAutoAnswer/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
+          <a href="https://github.com/downloads/shanselman/LyncAutoAnswer/SuperSimpleLyncKiosk_NotUISuppressed_Release.zip" class="button">
+            <small>NOT UI SUPPRESSED EDITION</small>
+            .zip Binaries
           </a>
-          <a href="https://github.com/shanselman/LyncAutoAnswer/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
+          <a href="https://github.com/downloads/shanselman/LyncAutoAnswer/SuperSimpleLyncKiosk_UISuppressed_Release.zip" class="button">
+            <small>UI SUPPRESSED EDITION</small>
+            .zip Binaries
           </a>
 
           <p class="repo-owner"><a href="https://github.com/shanselman/LyncAutoAnswer"></a> is maintained by <a href="https://github.com/shanselman">shanselman</a>.</p>
 
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+         
         </aside>
       </div>
     </div>
