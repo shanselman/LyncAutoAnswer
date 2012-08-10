@@ -16,3 +16,5 @@ More Information
 ----------------
 The project repository: https://github.com/shanselman/LyncAutoAnswer
 The project page: http://LyncAutoAnswer.com (full description, blog post references, author information etc.)
+
+A special nod to the InputSimulator project on CodePlex, as I'm using his excellent library: http://inputsimulator.codeplex.com/
