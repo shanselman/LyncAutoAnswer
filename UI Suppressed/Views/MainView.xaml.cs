@@ -23,10 +23,23 @@ namespace SuperSimpleLyncKiosk.Views
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel();
 
             ResizeMode = ResizeMode.NoResize;
             WindowState = WindowState.Maximized;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                DataContext = new MainViewModel();
+            }
+            catch (ApplicationException ex)
+            {
+                MessageBox.Show(ex.ToString(), "FATAL ERROR");
+                Application.Current.Shutdown(1);
+            }
         }
     }
 }
