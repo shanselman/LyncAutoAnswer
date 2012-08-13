@@ -124,6 +124,19 @@ aside#sidebar p.repo-owner a {
   font-weight: bold;
 }
 
+aside#sidebar div.team
+{
+ font-size: 40px;
+   padding-top: 20px;
+  padding-bottom: 20px;
+ font-family:"Segoe UI Light","Segoe WPC","Segoe UI",Helvetica,Arial,"Arial Unicode MS",Sans-Serif; 
+}
+
+aside#sidebar div.author
+{
+ text-align: justify;
+}
+
 #downloads {
   margin-bottom: 40px;
 }
