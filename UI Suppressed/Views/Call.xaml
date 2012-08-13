@@ -3,21 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-               xmlns:modalitycontrol="clr-namespace:LyncUISupressionWrapper.Controls;assembly=LyncUISupressionWrapper"
+             xmlns:modalitycontrol="clr-namespace:LyncUISupressionWrapper.Controls;assembly=LyncUISupressionWrapper"
              mc:Ignorable="d" 
+             Background="#333333"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
 
-        <modalitycontrol:VideoWindow Grid.Row="0" Grid.Column="0" x:Name="VideoWindow" Direction="Incoming"/>
-        <Grid  Grid.Row="0" Grid.Column="1" >
+        <modalitycontrol:VideoWindow Grid.Row="0" Grid.Column="0" x:Name="VideoWindow" Direction="Incoming" Margin="0,0,10,0"/>
+
+        <Grid Grid.Row="0" Grid.Column="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="170"/>
@@ -29,17 +31,16 @@
                                      Grid.Row="1" 
                                      Height="150" 
                                      Width="200" 
-                                     Margin="20, 20"
                                      HorizontalAlignment="Right"
                                      VerticalAlignment="Bottom" 
                                      />
 
             <StackPanel Grid.Row="0" >
 
-                <Button Command="{Binding Path=EndCallCommand}" Content="End Call" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="45">
+                <Button Command="{Binding Path=EndCallCommand}" Content="End Call" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="45" Cursor="Hand">
                     <Button.Template>
                         <ControlTemplate>
-                            <Image Source="/SuperSimpleLyncKioskUISuppressed;component/Images/hangup.png"   />       
+                            <Image Source="/SuperSimpleLyncKioskUISuppressed;component/Images/hangup.png" Stretch="None" />
                         </ControlTemplate>
                     </Button.Template>
                 </Button>

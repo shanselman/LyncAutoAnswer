@@ -19,38 +19,78 @@
         <Grid Margin="20">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="18*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="10*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
 
-            <Image  Grid.Row="0" Grid.Column="0" Source="/SuperSimpleLyncKioskUISuppressed;component/Images/contact.png" VerticalAlignment="Center" Height="48" Width="48" />
+            <Image Grid.Row="0" Grid.Column="0" Source="/SuperSimpleLyncKioskUISuppressed;component/Images/contact.png" VerticalAlignment="Center" HorizontalAlignment="Left" Height="66" Width="66" />
 
-            <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" >
-                <TextBlock Text="{Binding Path=DisplayName}"
-                               FontFamily="Segoe UI" FontWeight="Light"  FontSize="60" Margin="0,0,0,5"
-                   />
+            <Viewbox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" MaxHeight="100" Margin="0,0,0,15" >
+                <TextBlock Text="{Binding Path=DisplayName}" FontFamily="Segoe UI" FontWeight="Light"  FontSize="48" Foreground="#333333"/>
             </Viewbox>
 
-            <Rectangle Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Grid.ColumnSpan="2" Fill="White" Opacity="0.1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+            <Rectangle Grid.Row="1" Grid.Column="1" Fill="White" Opacity="0.1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 
-            <Viewbox Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Left">
-                <Image Source="{Binding Path=Photo}" Margin="30,30" MaxHeight="500"  VerticalAlignment="Top"/>
-            </Viewbox>
+            <Grid Grid.Row="1" Grid.Column="1" >
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,30">
-                <Viewbox  HorizontalAlignment="Left">
+                <Viewbox Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="500" Margin="30,30" >
+                    <Image Source="{Binding Path=Photo}" />
+                </Viewbox>
+
+                <Viewbox VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" MaxHeight="100" MinWidth="180" >
+                    <Button Command="{Binding Path=PlaceCallCommand}" Margin="10,0">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Grid Cursor="Hand">
+                                    <StackPanel Orientation="Horizontal" Margin="10,2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Image Grid.Column="0" Source="/SuperSimpleLyncKioskUISuppressed;component/Images/phone.png" Height="48" Width="48" />
+
+                                            <TextBlock Grid.Column="1" FontFamily="Segoe UI" FontWeight="Light" FontSize="48" Margin="10,0,0,10" Foreground="#333333">Start a video call</TextBlock>
+                                        </Grid>
+                                    </StackPanel>
+                                    <Rectangle Grid.Row="1" Grid.Column="1" Fill="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                                        <Rectangle.Style>
+                                            <Style TargetType="Rectangle">
+                                                <Setter Property="Opacity" Value="0.1"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Opacity" Value="0.2"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Rectangle.Style>
+                                    </Rectangle>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Viewbox>
+            </Grid>
+
+            <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Viewbox  HorizontalAlignment="Left" MaxHeight="50" Margin="0,20,0,0" >
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
 
                         <TextBlock
@@ -58,10 +98,10 @@
                             FontFamily="Segoe UI"
                            
                             VerticalAlignment="Top"
+                            Foreground="#333333"
                          />
 
-                        <TextBlock VerticalAlignment="Top" xml:space="preserve">: </TextBlock>
-                        <TextBlock
+                        <TextBlock Margin="6,0,0,0"
                            MaxWidth="300"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Left"
@@ -69,7 +109,8 @@
                            TextWrapping="Wrap"
                             TextTrimming="WordEllipsis"
                             FontFamily="Segoe UI" 
-                            FontWeight="Light"/>
+                            FontWeight="Light"
+                            Foreground="#333333"/>
                     </StackPanel>
                 </Viewbox>
 
@@ -77,46 +118,7 @@
 
       
 
-            <Button Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Command="{Binding Path=PlaceCallCommand}" 
-                           Margin="0 0 0 0"
-                           >
-                <Button.Template>
-                    <ControlTemplate>
-                            <Grid  Margin="0, 10, 30, 23" Cursor="Hand">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="/SuperSimpleLyncKioskUISuppressed;component/Images/phone.png" Height="48" Width="48" Margin="10,10,30,10"   />
-                                <Viewbox>
-                                    <StackPanel>
-                                        <TextBlock FontSize="48"
-                         FontFamily="Segoe UI" FontWeight="Light"
-                        Text="{Binding Path=DisplayName, StringFormat='Call {0}'}" />
-                                        <TextBlock 
-                         FontFamily="Segoe UI" FontWeight="Light" FontSize="24">Start a video call</TextBlock>
-                                    </StackPanel>
-                                </Viewbox>
-                            </StackPanel>
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                        <Setter Property="Background" Value="Transparent"/>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="LightGray"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                            </Grid.Style>
-
-                        </Grid>
-
-                    </ControlTemplate>
-                </Button.Template>
-               
-            </Button>
-
-
-
         </Grid>
-
     </Grid>
 </UserControl>
 
