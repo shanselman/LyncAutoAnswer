@@ -40,9 +40,9 @@
 	<li>Ideal for remote workers</li>
 </ul>	
 
-<p>I have <a href="http://www.hanselman.com/blog/CategoryView.aspx?category=Remote+Work">dozens of articles on my blog dedicated to Remote Work setup</a> that I hope you check out.</p>
+<p>I have <a href="http://www.hanselman.com/blog/CategoryView.aspx?category=Remote+Work">dozens of articles on my blog dedicated to Remote Work setup</a> that I hope you check out. I <a href="http://www.hanselman.com/blog/IntroducingLyncAutoAnswercomAnOpenSourceRemoteWorkersAutoAnswerKioskWithLync2010.aspx">wrote about this LyncAutoAnswer project as well.</a></p>
 
-<p>Feel free to have fun with the code, but I only guarantee that it "Works on My Machine.©™"
+<p>Feel free to have fun with the code, but we only guarantee that it "Works on My Machine.&copy;&trade;"
 <br/><img src="https://a248.e.akamai.net/camo.github.com/96621e3d29b54618ff80e5adb021019d58751a36/687474703a2f2f7777772e68616e73656c6d616e2e636f6d2f626c6f672f636f6e74656e742f62696e6172792f57696e646f77734c6976655772697465722f496e74726f647563696e67526f636b5363726f6c6c5f433239432f776f726b732d6f6e2d6d792d6d616368696e652d7374617262757273745f332e706e67"</>
 </p>
 
@@ -51,12 +51,37 @@
 <h1>Quick Setup Instructions</h1>
 <p>If you just want something that works and don't want to build it yourself, grab one of the binaries on the right. They're the Release builds of each of the different editions, built for AnyCPU. The readme in each file has specific instructions.</p>	
 
+<p>The general idea is simple. You create a Lync account that is NOT you; it's an account for your cart and the one you will call. Mine is called "Cart #7." I made a Domain Account that does NOT have the ability to login to a desktop. It doesn't have file system or network share access, it can only use Lync. Then I setup my remote machine to auto logon when it boots up. I also disabled it's power management and screensaver as this is a dumb kiosk. </p>
+
+            
+<p>Then you change the Lync Auto Answer settings like this:</p>
+<pre>
+&lt;userSettings&gt;
+      &lt;SuperSimpleLyncKiosk.Properties.Settings&gt;
+        &lt;setting name="sipEmailAddress" serializeAs="String"&gt;               
+            &lt;value&gt;sip:scottha@you.com&lt;/value&gt; &lt;!-- THIS IS YOU --&gt;  
+      &lt;/setting&gt;    
+    &lt;setting name="LyncAccountDomainUser" serializeAs="String"&gt; 
+         &lt;value&gt;DOMAIN\thecart7&lt;/value&gt;   
+     &lt;/setting&gt;    
+    &lt;setting name="LyncAccountEmail" serializeAs="String"&gt;
+          &lt;value&gt;thecart7@you.com&lt;/value&gt;  
+      &lt;/setting&gt;   
+     &lt;setting name="LyncAccountPassword" serializeAs="String"&gt;   
+       &lt;value&gt;&lt;![CDATA[YOUR*CART*PASSWORDISHERE]]&gt;
+    &lt;/value&gt;   
+     &lt;/setting&gt;  
+    &lt;/SuperSimpleLyncKiosk.Properties.Settings&gt;&lt;/userSettings&gt;
+</pre>
+   <p>And that's it! The kiosk does the rest.</p>
 <h1>Which Edition?</h1>
 
 <p>There's two editions of this project. The 'normal' way is to run code alongside the Lync Client - Non UI Suppressed. The other way is to run UI Suppressed. Both versions are below so you can see the differences: read about them and pick your favorite to play with.</p>
 
 <h2>Not UI Suppressed Edition</h2>
 <p>This got written and <a href="http://www.hanselman.com/blog/IntroducingLync2010SuperSimpleAutoAnswerVideoKioskWithFullScreen.aspx">blogged about</a> first. It doesn't require you to do anything special other than have Microsoft Lync 2010 running. It will auto-answer calls, connect video and go full screen.</p>
+
+             <p><img src="images\image_thumb_5.png" /></p>
 
 <p>A special nod to the <a href="http://inputsimulator.codeplex.com/">InputSimulator project on CodePlex</a>, as I'm using his excellent library.</p>
 
@@ -66,6 +91,8 @@
 <p>
 	After writing the Not UI Suppressed edition, I reached out to <a href="http://thoughtstuff.co.uk">Tom</a> for help with making a UI Suppressed	version so I could do true full-screen and have more control, as it's complicated to use Lync in UI Suppression Mode. The guys at <a href="http://www.modalitydev.net">Modality Systems</a> wrote me a wrapper class (<a href="https://github.com/tomorgan/Lync-UISuppression-VideoAutoAnswer">also a GitHub project</a>) which takes a lot of that pain away, and refactored my code to make a UI Suppressed edition.
 </p>
+           <p><img src="images\image_8.png" /></p>
+             <p><img src="images\image_9.png" /></p>
 
 <p>You can see, build or change the UI Suppressed version by opening the proj file in the <b>UI Suppressed</b> folder.
 
@@ -82,12 +109,15 @@
 <p>You can also find these scripts in the <a href="https://github.com/shanselman/LyncAutoAnswer/downloads">Download</a> section</p>
 
 
+            <p><img src="images\itworks.png" /></p>
+
+
 <h1>More Information / Resources</h1>
 	<ul>
 	<li>Both projects use the <a href="http://www.microsoft.com/en-us/download/details.aspx?id=18898">Lync 2010 Client Developer SDK</a></li>
-	<li>The UI Suppression edition uses the <a href="https://github.com/tomorgan/Lync-UISuppression-VideoAutoAnswer">Lync-UISuppression-VideoAutoAnswer project.</a></li>
-	<li><a href="http://www.hanselman.com/blog/IntroducingLync2010SuperSimpleAutoAnswerVideoKioskWithFullScreen.aspx">Scott's blog post about writing the Not UI Suppressed edition<a/></li>
-	<li><a href="http://www.modalitydev.net/2012/08/open-source-project-lyncautoanswer/">Tom's blog post about writing the UI Suppressed edition<a/></li>
+	<li>The UI Suppression edition uses the <a href="https://github.com/tomorgan/Lync-UISuppression-VideoAutoAnswer">Lync-UISuppression-VideoAutoAnswer project</a>.</li>
+	<li><a href="http://www.hanselman.com/blog/IntroducingLync2010SuperSimpleAutoAnswerVideoKioskWithFullScreen.aspx">Scott's blog post about writing the Not UI Suppressed edition</a> as well as this new <a href="http://www.hanselman.com/blog/IntroducingLyncAutoAnswercomAnOpenSourceRemoteWorkersAutoAnswerKioskWithLync2010.aspx"> UI Suppressed Edition</a>.</li>
+	<li><a href="http://www.modalitydev.net/2012/08/open-source-project-lyncautoanswer/">Tom's blog post about writing the UI Suppressed edition</a></li>
 	<li><a href="http://msdn.microsoft.com/en-us/library/hh345230.aspx">MSDN article on UI Suppression</a></li>
 	</ul>
 	
