@@ -1,5 +1,6 @@
 Lync 2012 Super Simple Auto Answer Video Kiosk with Full Screen, son.
 ==============
+Lots more info at http://www.lyncautoanswer.com, be sure to visit.
 
 I have a machine at my remote office in Seattle that is dedicated to Lync Video. For whatever reason the Lync folks don't include basic checkbox options like "Auto Answer" and "Start Video Automatically when someone calls" and "Make Video Fullscreen."
 
